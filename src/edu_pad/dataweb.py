@@ -39,16 +39,17 @@ class DataWeb:
                 'Volumen':'volumen'
             })
             df = self.convertir_numericos(df)
-            df.to_excel("dataweb_limpio.xlsx")
+            #df.to_excel("dataweb_limpio.xlsx")
             # print(nombre_columnas)
             # print(filas)
             # for th in tabla.thead.find_all('th'):
             #     th_data = th.get_text(strip=True)
 # ['Fecha', 'Abrir', 'Máx.', 'Mín.', 'CerrarPrecio de cierre ajustado para splits.', 'Cierre ajustadoPrecio de cierre ajustado para splits y distribuciones de dividendos o plusvalías.', 'Volumen']
 
-
+            return df
         except Exception as err:
             print("Error en la funcion obtener_datos")
+            df = pd.DataFrame()
 
 
     def convertir_numericos(self,df=pd.DataFrame()):
@@ -56,12 +57,10 @@ class DataWeb:
         if len(df)>0:
             #for col in (df.columns):
             for col in ('abrir',	'max',	'min',	'cerrar',	'cierre_ajustado',	'volumen'):
-                df[col] = (
-                    df[col]
-                    .str.replace(r'\.','',regex=True)
-                    .str.replace(',','.',regex=True)
-                    .astype(float)
-                )
+                df[col] = (df[col]
+                           .str.replace(r"\.","",regex=True)
+                           .str.replace(",",'.'))
+
         return df
 
 

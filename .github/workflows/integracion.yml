@@ -32,6 +32,7 @@ jobs:
 
       name: Extractor de Datos
       runs-on: windows-latest
+      needs: build
       permissions:
         contents: write
       steps:
@@ -46,6 +47,7 @@ jobs:
   run-script:
       name: Ingesta de Datos
       runs-on: windows-latest
+      needs: test
       permissions:
         contents: write
       steps:
@@ -59,6 +61,7 @@ jobs:
   auto-commit:
       name: Integracion Cambio
       runs-on: windows-latest
+      needs: run-script
       permissions:
         contents: write
       steps:

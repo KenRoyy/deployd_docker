@@ -6,6 +6,7 @@ on:
 
 jobs:
   build:
+    name: Configuracion
     runs-on: windows-latest
     permissions:
       contents: write
@@ -28,11 +29,16 @@ jobs:
 
 
   test:
+
       name: Extractor de Datos
       runs-on: windows-latest
       permissions:
         contents: write
       steps:
+        - name: Paso 1 - Checkout Repositorio
+          uses: actions/checkout@v4
+        - name: Paso 4 - Activar entorno virtual
+          run: ./venv/Scripts/activate
         - name: Paso 7 - Ejecutar Script
           run: python src/edu_pad/main_extractor.py
 
@@ -43,11 +49,15 @@ jobs:
       permissions:
         contents: write
       steps:
+        - name: Paso 1 - Checkout Repositorio
+          uses: actions/checkout@v4
+        - name: Paso 4 - Activar entorno virtual
+          run: ./venv/Scripts/activate
         - name: Paso 8 - Ejecutar Script
           run: python src/edu_pad/main_ingesta.py
 
   auto-commit:
-      name: Ingesta de Datos
+      name: Integracion Cambio
       runs-on: windows-latest
       permissions:
         contents: write

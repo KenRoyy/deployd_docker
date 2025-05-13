@@ -34,7 +34,7 @@ jobs:
         contents: write
       steps:
         - name: Paso 7 - Ejecutar Script
-          run: python src/edu_bigdata/main_extractor.py
+          run: python src/edu_pad/main_extractor.py
 
 
   run-script:
@@ -44,7 +44,7 @@ jobs:
         contents: write
       steps:
         - name: Paso 8 - Ejecutar Script
-          run: python src/edu_bigdata/main_ingesta.py
+          run: python src/edu_pad/main_ingesta.py
 
   auto-commit:
       name: Ingesta de Datos

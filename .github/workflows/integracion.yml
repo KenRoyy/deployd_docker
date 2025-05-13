@@ -1,0 +1,63 @@
+name: Entregables
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Paso 1 - Checkout Repositorio
+        uses: actions/checkout@v4
+      - name: Paso 2 - Setup python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9.2'
+      - name: Paso 3 - Crear entorno virtual
+        run: python -m venv venv
+      - name: Paso 4 - Activar entorno virtual
+        run: ./venv/Scripts/activate
+      - name: Paso 5 - Actualizar pip
+        run: pip install --upgrade pip
+      - name: Paso 6 - Instalar dependecias
+        run: pip install -e .
+
+
+  test:
+      name: Extractor de Datos
+      runs-on: windows-latest
+      permissions:
+        contents: write
+      steps:
+        - name: Paso 7 - Ejecutar Script
+          run: python src/edu_bigdata/main_extractor.py
+
+
+  run-script:
+      name: Ingesta de Datos
+      runs-on: windows-latest
+      permissions:
+        contents: write
+      steps:
+        - name: Paso 8 - Ejecutar Script
+          run: python src/edu_bigdata/main_ingesta.py
+
+  auto-commit:
+      name: Ingesta de Datos
+      runs-on: windows-latest
+      permissions:
+        contents: write
+      steps:
+        - name: Paso 9 - crear commit automatico
+          uses: stefanzweifel/git-auto-commit-action@v5
+          with:
+            commit_message: Entrega de la actividad 1 - Paso 9
+            commit_user_name: Andres Callejas [GitHub Actions]
+            commit_user_email: andres.callejas@iudigital.edu.co
+            commit_author: Andres Callejas <andres.callejas@iudigital.edu.co>
+      
+      

@@ -15,3 +15,7 @@ edu_pad.egg-info/PKG-INFO
 dist/edu_pad-0.0.1-py3.12.egg
 edu_pad.egg-info/PKG-INFO
 edu_pad.egg-info/PKG-INFO
+edu_pad.egg-info/PKG-INFO
+/edu_pad.egg-info
+src/edu_pad/__pycache__
+/src/edu_pad/__pycache__

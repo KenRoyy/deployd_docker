@@ -1,0 +1,50 @@
+name: 1-Data-Extraction
+
+on:
+  schedule:
+    - cron: '0 */12 * * *'  # Ejecutar cada 12 horas
+  workflow_dispatch:  # Permite ejecución manual
+
+jobs:
+  extract_data:
+    name: Extraer datos de Yahoo Finance
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          
+      - name: Instalar dependencias con setup.py
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+          pip install sqlite3-simple
+          
+      - name: Ejecutar extracción de datos
+        id: extract
+        run: |
+          mkdir -p src/edu_pad/static/csv
+          python src/edu_pad/main_extractor.py
+          
+          # Verificar si el archivo CSV existe y tiene contenido
+          if [ -s "src/edu_pad/static/csv/data_extractor.csv" ]; then
+            echo "extraction_success=true" >> $GITHUB_OUTPUT
+            echo "Datos extraídos correctamente"
+          else
+            echo "extraction_success=false" >> $GITHUB_OUTPUT
+            echo "Error: No se pudieron extraer datos"
+            exit 1
+          fi
+      
+      - name: Subir CSV como artefacto
+        if: steps.extract.outputs.extraction_success == 'true'
+        uses: actions/upload-artifact@v3
+        with:
+          name: dolar-data-csv
+          path: src/edu_pad/static/csv/data_extractor.csv
+          retention-days: 1

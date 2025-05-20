@@ -6,12 +6,14 @@ setup(
     version="0.0.1",
     author="Andres Callejas",
     author_email="andres.callejas@iudigital.edu.co",
-    description="",
-    py_modules=["actividad1","actividad2"],
+    description="ETL para análisis de datos del dólar",
+    packages=find_packages(where="src"),
+    package_dir={"": "src"},
     install_requires=[
         "pandas",
         "openpyxl",
         "requests",
-        "beautifulsoup4"
+        "beautifulsoup4",
+        "sqlite3-simple"
     ]
 )

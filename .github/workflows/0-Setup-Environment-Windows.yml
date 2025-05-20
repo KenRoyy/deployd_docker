@@ -27,6 +27,18 @@ jobs:
           if not exist "src\edu_pad\static\csv" mkdir src\edu_pad\static\csv
           if not exist "src\edu_pad\static\logs" mkdir src\edu_pad\static\logs
         shell: cmd
+      
+      - name: Actualizar setup.py si es necesario
+        run: |
+          $setupContent = Get-Content setup.py -Raw
+          if ($setupContent -like "*sqlite3-simple*") {
+            $updatedContent = $setupContent -replace '"sqlite3-simple",?', ''
+            $updatedContent | Set-Content setup.py -Force
+            echo "Se eliminó sqlite3-simple de setup.py"
+          } else {
+            echo "No se encontró sqlite3-simple en setup.py"
+          }
+        shell: pwsh
           
       - name: Crear entorno virtual
         run: python -m venv venv

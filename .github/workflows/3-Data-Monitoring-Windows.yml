@@ -1,8 +1,8 @@
-name: 3-Data-Monitoring
+name: 3-Data-Monitoring-Windows
 
 on:
   workflow_run:
-    workflows: ["2-Data-Ingestion"]
+    workflows: ["2-Data-Ingestion-Windows"]
     types:
       - completed
   schedule:
@@ -11,8 +11,8 @@ on:
 
 jobs:
   monitor_database:
-    name: Monitorear base de datos
-    runs-on: ubuntu-latest
+    name: Monitorear base de datos (Windows)
+    runs-on: windows-latest
     permissions:
       contents: write
     
@@ -25,40 +25,49 @@ jobs:
         with:
           python-version: '3.9'
           
-      - name: Instalar dependencias con setup.py
+      - name: Crear entorno virtual
+        run: python -m venv venv
+        
+      - name: Activar entorno virtual e instalar dependencias
         run: |
+          .\venv\Scripts\activate
           python -m pip install --upgrade pip
           pip install -e .
+        shell: pwsh
+          
+      - name: Crear directorios
+        run: |
+          if not exist "src\edu_pad\static\db" mkdir src\edu_pad\static\db
+          if not exist "src\edu_pad\static\logs" mkdir src\edu_pad\static\logs
+        shell: cmd
           
       - name: Descargar base de datos desde artefactos
         uses: dawidd6/action-download-artifact@v2
         with:
-          workflow: 2-Data-Ingestion.yml
+          workflow: 2-Data-Ingestion-Windows.yml
           workflow_conclusion: success
-          name: dolar-sqlite-db
-          path: src/edu_pad/static/db/
+          name: dolar-sqlite-db-windows
+          path: src\edu_pad\static\db\
           
       - name: Verificar existencia de la base de datos
         id: check_db
         run: |
-          if [ -f "src/edu_pad/static/db/dolar_analisis.db" ]; then
-            echo "db_exists=true" >> $GITHUB_OUTPUT
+          if (Test-Path "src\edu_pad\static\db\dolar_analisis.db") {
+            echo "db_exists=true" >> $env:GITHUB_OUTPUT
             echo "Base de datos encontrada. Procediendo con el monitoreo..."
-          else
-            echo "db_exists=false" >> $GITHUB_OUTPUT
+          } else {
+            echo "db_exists=false" >> $env:GITHUB_OUTPUT
             echo "Error: Base de datos no encontrada"
             exit 1
-          fi
-          
-      - name: Crear directorio de logs
-        if: steps.check_db.outputs.db_exists == 'true'
-        run: mkdir -p src/edu_pad/static/logs
+          }
+        shell: pwsh
           
       - name: Copiar script de monitoreo
         if: steps.check_db.outputs.db_exists == 'true'
         run: |
-          mkdir -p src/edu_pad
-          cp monitor.py src/edu_pad/
+          if not exist "src\edu_pad" mkdir src\edu_pad
+          copy monitor.py src\edu_pad\ 2>nul || echo Archivo no encontrado
+        shell: cmd
           
       - name: Ejecutar monitoreo
         if: steps.check_db.outputs.db_exists == 'true'
@@ -68,21 +77,25 @@ jobs:
           EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
-        run: python src/edu_pad/monitor.py
+        run: |
+          .\venv\Scripts\activate
+          python src\edu_pad\monitor.py
+        shell: pwsh
         
       - name: Subir logs como artefacto
         if: steps.check_db.outputs.db_exists == 'true'
         uses: actions/upload-artifact@v4
         with:
-          name: monitor-logs
-          path: src/edu_pad/static/logs/
+          name: monitor-logs-windows
+          path: src\edu_pad\static\logs\
           retention-days: 30
           
       - name: Actualizar logs en el repositorio
         if: steps.check_db.outputs.db_exists == 'true' && github.event_name != 'schedule'
         run: |
-          git config --global user.name 'GitHub Actions'
-          git config --global user.email 'github-actions@github.com'
-          git add src/edu_pad/static/logs/monitor_log.json || true
-          git commit -m "Actualiza logs de monitoreo [skip ci]" || true
-          git push || true
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "github-actions@github.com"
+          git add src\edu_pad\static\logs\monitor_log.json -f
+          git commit -m "Actualiza logs de monitoreo [skip ci]" || echo "No hay cambios que commitear"
+          git push
+        shell: pwsh

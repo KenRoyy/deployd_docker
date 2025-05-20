@@ -20,6 +20,18 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.9'
+      
+      - name: Actualizar setup.py si es necesario
+        run: |
+          $setupContent = Get-Content setup.py -Raw
+          if ($setupContent -like "*sqlite3-simple*") {
+            $updatedContent = $setupContent -replace '"sqlite3-simple",?', ''
+            $updatedContent | Set-Content setup.py -Force
+            echo "Se eliminó sqlite3-simple de setup.py"
+          } else {
+            echo "No se encontró sqlite3-simple en setup.py"
+          }
+        shell: pwsh
           
       - name: Crear entorno virtual
         run: python -m venv venv
@@ -75,7 +87,7 @@ jobs:
       - name: Limpiar archivos CSV
         if: steps.check_csv.outputs.csv_exists == 'true'
         run: |
-          echo "Limpiando archivos CSV temporales..."
+          echo Limpiando archivos CSV temporales...
           del src\edu_pad\static\csv\data_extractor.csv
-          echo "Archivos CSV eliminados correctamente"
+          echo Archivos CSV eliminados correctamente
         shell: cmd

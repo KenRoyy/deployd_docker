@@ -19,3 +19,7 @@ edu_pad.egg-info/PKG-INFO
 /edu_pad.egg-info
 src/edu_pad/__pycache__
 /src/edu_pad/__pycache__
+src/edu_pad.egg-info/PKG-INFO
+.gitignore
+src/edu_pad.egg-info/SOURCES.txt
+src/edu_pad.egg-info/top_level.txt

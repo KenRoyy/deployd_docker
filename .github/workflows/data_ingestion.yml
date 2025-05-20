@@ -56,7 +56,7 @@ jobs:
         run: python src/edu_pad/main_ingesta.py
         
       - name: Subir base de datos como artefacto
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: dolar-sqlite-db
           path: src/edu_pad/static/db/dolar_analisis.db

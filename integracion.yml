@@ -12,6 +12,12 @@ jobs:
       contents: write
 
     steps:
+      - name: Login docker GitHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_HUB_USERNAME }}
+          password: ${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}
+
       - name: Paso 1 - Checkout Repositorio
         uses: actions/checkout@v4
       - name: Paso 2 - Setup python

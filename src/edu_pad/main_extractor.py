@@ -7,7 +7,7 @@ def main():
     dataweb = DataWeb()
     df = dataweb.obtener_datos() 
     df = dataweb.convertir_numericos(df) # capa 2 
-    df.to_csv("src/edu_pad/static/csv/data_extractor.csv", index=False)
+    df.to_csv("static/csv/data_extractor.csv", index=False)
 
 
 

@@ -6,8 +6,6 @@ COPY . .
 
 RUN mkdir -p static/csv static/db
 
-RUN mkdir -p static/db
-
 RUN pip install --upgrade pip \
     && pip install -e . \
     && rm -rf /root/.cache/pip

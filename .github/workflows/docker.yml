@@ -16,4 +16,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_TOKEN }}
-      
+      - name: Paso 3 - configurar la imagen docker
+        run: docker build -t holamundo
+      - name: Paso 4 - ejecutar imagen
+        run: docker run holamundo

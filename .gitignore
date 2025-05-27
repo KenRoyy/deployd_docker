@@ -23,3 +23,4 @@ src/edu_pad.egg-info/PKG-INFO
 .gitignore
 src/edu_pad.egg-info/SOURCES.txt
 src/edu_pad.egg-info/top_level.txt
+.env

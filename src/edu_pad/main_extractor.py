@@ -3,7 +3,7 @@ import pandas as pd
 
 
 
-def main_1():
+def main():
     dataweb = DataWeb()
     df = dataweb.obtener_datos() 
     df = dataweb.convertir_numericos(df) # capa 2 
@@ -12,4 +12,4 @@ def main_1():
 
 
 if __name__ == "__main__":
-    main_1()
+    main()

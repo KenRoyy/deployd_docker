@@ -18,5 +18,7 @@ jobs:
           password: ${{ secrets.DOCKER_TOKEN }}
       - name: Paso 3 - configurar la imagen docker
         run: docker build -t contenedor .
-      - name: Paso 4 - ejecutar contenedor
-        run: docker run --rm contenedor
+      - name: Paso 4 - ejecutar main_extractor
+        run: docker run --rm contenedor edu_pad.main_extractor
+      - name: Paso 5 - ejecutar main_ingesta
+        run: docker run --rm contenedor edu_pad.main_ingesta

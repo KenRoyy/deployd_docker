@@ -6,7 +6,7 @@ import os
 
 class DataBase:
     def __init__(self):
-        self.rutadb = "src/edu_pad/static/db/dolar_analisis.db"
+        self.rutadb = "static/db/dolar_analisis.db"
 
 
     def guardar_df(self,df=pd.DataFrame()):

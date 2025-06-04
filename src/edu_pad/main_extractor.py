@@ -1,13 +1,14 @@
-from edu_pad.dataweb import DataWeb
+from src.edu_pad.dataweb import DataWeb
 import pandas as pd
 
 
 
 def main():
     dataweb = DataWeb()
-    df = dataweb.obtener_datos() 
-    df = dataweb.convertir_numericos(df) # capa 2 
-    df.to_csv("static/csv/data_extractor.csv", index=False)
+    list_indicadores = ["DOLA-USD","EURUSD%3DX","CL%3DF","GC%3DF"]
+    for indicador in list_indicadores:
+        df = dataweb.procesar_indicador_completo(indicador)
+        df.to_csv("src/edu_pad/static/csv/data_extractor.csv", index=False,mode="a")
 
 
 

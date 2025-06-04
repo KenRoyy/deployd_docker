@@ -26,3 +26,4 @@ class Stramlit_app:
 
 
 stramlit_app=Stramlit_app()
+stramlit_app.slider_bar()

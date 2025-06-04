@@ -11,6 +11,8 @@ setup(
         "pandas",
         "openpyxl",
         "requests",
-        "beautifulsoup4"
+        "beautifulsoup4",
+        "altair>=5.0.0",
+        "streamlit>=1.28.0"
     ]
 )

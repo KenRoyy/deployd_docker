@@ -17,11 +17,12 @@ class Stramlit_app:
     def slider_bar(self):
         with st.sidebar:
             st.title('📈  Filtro por año')
-            
             year_list = list(self.df.year.unique())[::-1]
-            
             selected_year = st.selectbox('Select a year', year_list)
-            df_selected_year = self.df[self.df.year == selected_year]
+            st.title('📈  Filtro por indicador')
+            ind_list = list(self.df.indicador.unique())[::-1]
+            selected_ind = st.selectbox('Select a year', ind_list)
+            #df_selected_year = self.df[self.df.year == selected_year]
 
 
 

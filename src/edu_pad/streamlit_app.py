@@ -126,5 +126,5 @@ class Stramlit_app:
 
 stramlit_app=Stramlit_app()
 stramlit_app.slider_bar()
-df_filtrado = stramlit_app.df[stramlit_app.df.year == stramlit_app.selected_year]
-stramlit_app.make_heatmap(df_filtrado)
+#df_filtrado = stramlit_app.df[stramlit_app.df.year == stramlit_app.selected_year]
+#stramlit_app.make_heatmap(df_filtrado)

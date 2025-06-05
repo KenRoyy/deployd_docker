@@ -24,3 +24,12 @@ src/edu_pad.egg-info/PKG-INFO
 src/edu_pad.egg-info/SOURCES.txt
 src/edu_pad.egg-info/top_level.txt
 .env
+src/edu_pad/streamlit_gallery/__pycache__/__init__.cpython-312.pyc
+src/edu_pad/streamlit_gallery/apps/__pycache__/__init__.cpython-312.pyc
+src/edu_pad/streamlit_gallery/apps/__pycache__/gallery.cpython-312.pyc
+src/edu_pad/streamlit_gallery/components/__pycache__/__init__.cpython-312.pyc
+src/edu_pad/streamlit_gallery/components/pandas_profiling/__pycache__/__init__.cpython-312.pyc
+src/edu_pad/streamlit_gallery/components/pandas_profiling/__pycache__/streamlit_app.cpython-312.pyc
+src/edu_pad/streamlit_gallery/utils/__pycache__/__init__.cpython-312.pyc
+src/edu_pad/streamlit_gallery/utils/__pycache__/page.cpython-312.pyc
+src/edu_pad/streamlit_gallery/utils/__pycache__/readme.cpython-312.pyc

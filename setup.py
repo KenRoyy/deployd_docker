@@ -21,7 +21,6 @@ setup(
         "streamlit-elements",
         "streamlit-pandas-profiling",
         "streamlit-player",
-        "streamlit-quill",
-        "pandas-profiling"
+        "streamlit-quill"
     ]
 )

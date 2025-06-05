@@ -13,6 +13,15 @@ setup(
         "requests",
         "beautifulsoup4",
         "altair>=5.0.0",
-        "streamlit>=1.28.0"
+        "streamlit>=1.28.0",
+        # Core
+        "streamlit-ace",
+        "streamlit-discourse",
+        "streamlit-disqus",
+        "streamlit-elements",
+        "streamlit-pandas-profiling",
+        "streamlit-player",
+        "streamlit-quill",
+        "pandas-profiling"
     ]
 )

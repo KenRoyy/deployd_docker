@@ -3,16 +3,17 @@ import pandas as pd
 import altair as alt
 import os
 import streamlit as st
-from streamlit_gallery import apps, components
-from streamlit_gallery.utils.page import page_group
+import pandas as pd
+from streamlit_pandas_profiling import st_profile_report
 
 
 
 
 
 def main():
-    page = page_group("p")
-    page.show()
+    df = pd.read_csv("src/edu_pad/static/csv/data_extractor.csv")
+    pr = df.profile_report()
+    st_profile_report(pr)
 
 
 if __name__ == "__main__":

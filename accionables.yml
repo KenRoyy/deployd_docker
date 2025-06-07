@@ -33,6 +33,6 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Genera archivo csv de las web
-          commit_user_name: Andres Callejas [GitHub Actions]
-          commit_user_email: andres.callejas@iudigital.edu.co
-          commit_author: Andres Callejas <andres.callejas@iudigital.edu.co>
+          commit_user_name: Julian Niño [GitHub Actions]
+          commit_user_email: davidcocoj@gmail.com  
+          commit_author: Julian Niño <davidcocoj@gmail.com>
